@@ -1,0 +1,18 @@
+
+# dependencies
+/node_modules
+/example/node_modules
+
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# misc
+.DS_Store
+
+package-lock.json
+/example/package-lock.json
+yarn.lock
+/example/yarn.lock

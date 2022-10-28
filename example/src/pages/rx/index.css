@@ -1,0 +1,63 @@
+.nav-title {
+  font-size: 32px;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+
+.child {
+  width: 100%;
+  padding: 20px 0;
+  border: 1px solid #ccc;
+}
+.child .title {
+  color: red;
+  padding-left: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.child .btn-group {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.child .btn-group button {
+  width: 100px;
+  margin-right: 20px;
+  color: red;
+}
+
+.clock {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.clock-title {
+  color: red;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.clock-wrap {
+  width: 100%;
+  margin-top: 10px;
+  height: 80px;
+  text-align: center;
+}
+
+.clock-wrap .clock-loading {
+  height: 100%;
+  width: 100%;
+  color: red;
+  line-height: 80px;
+}
+
+.clock-wrap .clock-time {
+  height: 100%;
+  width: 100%;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 80px;
+}
+
