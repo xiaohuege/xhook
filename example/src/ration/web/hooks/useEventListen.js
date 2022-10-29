@@ -15,7 +15,6 @@ export function useEventListen(project, needSubscribe = true) {
   const context = getCurrentContext();
   const stateRef = context[REF_TAG.state];
   const obRef = useRef(new Subject());
-  const oriOb$ = obRef.current;
   const newOb$ = useMemo(() => {
     let ob$ = obRef.current;
     if (_.isFunction(project)) {
@@ -27,5 +26,5 @@ export function useEventListen(project, needSubscribe = true) {
   const eventHandler = useCallback((...args) => {
     newOb$.next({ data: stateRef.current, item: args });
   }, []);
-  return [eventHandler, newOb$, oriOb$];
+  return [eventHandler, newOb$, obRef.current];
 }

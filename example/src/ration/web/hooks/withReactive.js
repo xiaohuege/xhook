@@ -22,7 +22,11 @@ function handleGc() {
     () => () => {
       if (_.isArray(gcRef.current)) {
         _.each(gcRef.current, (sub) => {
-          sub.unsubscribe && sub.unsubscribe();
+          if (_.isFunction(sub)) {
+            try {
+              sub();
+            } catch(e) {}
+          }
         });
       }
     },

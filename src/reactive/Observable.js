@@ -37,10 +37,6 @@ export class Observable {
     return subscriber;
   }
 
-  use(observerOrNext, error, complete) {
-    return this.subscribe(observerOrNext, error, complete);
-  }
-
   _subscribe(subscriber) {
     return this.source && this.source.subscribe(subscriber);
   }

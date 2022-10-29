@@ -6,14 +6,27 @@
 [示例代码](https://github.com/xiaohuege/xhook/blob/main/example/src/pages/rx/index.js)
 
 
-## 实现原理
+## 实现理念和原理
 > 核心原理：响应事件 -> 变更状态 -> 响应事件 .... -> 变更状态
 
 借助rxjs数据流的理念，劫持组件事件将其转换为数据流，所有业务逻辑编程对这些数据流变化的响应，通过操作符将业务逻辑进行拆分。
 
 > 事件包括：组件加载、卸载，用户操作事件(点击)，属性变更事件
 
+借助xstate有限状态机的理念，事先声明好可枚举的状态及其变换过程，所有的状态统一管理，避免状态的碎片化。
 
+[状态机配置示例](https://github.com/xiaohuege/xhook/blob/main/example/src/config/clock.js)
+
+## API介绍
+> api数量很少，共6个：1个组件包裹函数、5个hook、3个操作符
+
+### 1、组件包裹函数 - withReactive
+### 2、生命周期事件hook - useMount、useUnmount
+### 3、用户操作事件hook - useEvenListen
+### 4、属性变更hook - useObserver
+### 5、事件组合hook - useEventCompose
+### 6、状态更新操作符 - update
+### 1、withReactive组件包裹函数
 
 
 ## 学习资料

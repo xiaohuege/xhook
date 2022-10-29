@@ -1,7 +1,7 @@
 /* 首页：全部审核单页面 */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withReactive, useMount, useEventListen, useEventCompose, useUnmount, useObserver } from '../../ration/web';
+import { withReactive, useMount, useEventListen, useDomEventListen, useEventCompose, useUnmount, useObserver } from '../../ration/web';
 import { map, merge, log, scan, update, transition, timer, switchMap, takeUntil } from '../../ration/main';
 
 import './index.css';
@@ -128,6 +128,15 @@ const Rx = withReactive((props, state) => {
   const title = 'withReactive测试';
   const [, unmount$] = useUnmount();
   useMount(ob$ => ob$.pipe(log('rx mount'), switchMap(() => timer(2000, 1000)), update((data, flag) => ({ flag })), log('rx mount 2222'), takeUntil(unmount$)));
+
+  useDomEventListen((next) => {
+    const handler = (e) => {
+      console.log('global click');
+      next(e);
+    }
+    window.document.addEventListener('click', handler);
+    return () => window.document.removeEventListener('click', handler);
+  }, ob$ => ob$.pipe(log('useDomEventListen')));
   return (
     <div>
       <div className="nav-title">{title}</div>
