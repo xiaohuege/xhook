@@ -1,12 +1,12 @@
 /* 首页：全部审核单页面 */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { useReactive, useMount, useEventListen, useEventCompose, useUnmount } from '../../ration/web';
+import { withReactive, useMount, useEventListen, useEventCompose, useUnmount } from '../../ration/web';
 import { map, merge, log, scan, update, transition, timer, switchMap, takeUntil } from '../../ration/main';
 
 import './index.css';
 
-const Count = useReactive((props, state) => {
+const Count = withReactive((props, state) => {
   const [addoneHandler, addone$] = useEventListen(ob$ => ob$.pipe(map(() => 1)), false);
 
   const [addtowHandler, addtwo$] = useEventListen(ob$ => ob$.pipe(map(() => 2)), false);
@@ -93,7 +93,7 @@ function calcTime() {
   return { time: +now, timeStr };
 }
 
-const Clock = useReactive((props, state) => {
+const Clock = withReactive((props, state) => {
   const [, unmount$] = useUnmount();
   useMount(ob$ => ob$.pipe(
     transition('INIT'),
@@ -116,8 +116,8 @@ const Clock = useReactive((props, state) => {
   );
 }, ClockStateMachine);
 
-const Rx = useReactive(() => {
-  const title = 'useReactive测试';
+const Rx = withReactive(() => {
+  const title = 'withReactive测试';
   useMount(ob$ => ob$.pipe(log('rx mount')));
   return (
     <div>

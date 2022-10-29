@@ -3,7 +3,7 @@ import { Subject } from '../../reactive/Subject';
 import { getCurrentContext } from '../PreContext';
 import { REF_TAG } from '../contants';
 import _ from 'underscore';
-import { useGc } from './gc';
+import { gc } from './gc';
 
 /**
  * 事件监听hook
@@ -21,7 +21,7 @@ export function useEventListen(project, needSubscribe = true) {
     if (_.isFunction(project)) {
       ob$ = project(ob$);
     }
-    needSubscribe && useGc(ob$);
+    needSubscribe && gc(ob$);
     return ob$;
   }, []);
   const eventHandler = useCallback((...args) => {

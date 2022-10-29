@@ -1,7 +1,7 @@
 import { getCurrentContext } from '../PreContext';
 import { REF_TAG } from '../contants';
 import _ from 'underscore';
-import { useGc } from './gc';
+import { gc } from './gc';
 import { useMemo } from 'react';
 
 /**
@@ -12,13 +12,13 @@ import { useMemo } from 'react';
  */
 export function useMount(project, needSubscribe = true) {
   const ctx = getCurrentContext();
-  const mount$ = ctx[REF_TAG.mount$];
+  const mount$ = ctx[REF_TAG.mount];
   const newOb$ = useMemo(() => {
     let ob$ = mount$.current;
     if (_.isFunction(project)) {
       ob$ = project(ob$);
     }
-    needSubscribe && useGc(ob$);
+    needSubscribe && gc(ob$);
     return ob$;
   }, []);
   return [newOb$, mount$.current];
@@ -32,13 +32,13 @@ export function useMount(project, needSubscribe = true) {
  */
 export function useUnmount(project, needSubscribe = true) {
   const ctx = getCurrentContext();
-  const unmount$ = ctx[REF_TAG.unmount$];
+  const unmount$ = ctx[REF_TAG.unmount];
   const newOb$ = useMemo(() => {
     let ob$ = unmount$.current;
     if (_.isFunction(project)) {
       ob$ = project(ob$);
     }
-    needSubscribe && useGc(ob$);
+    needSubscribe && gc(ob$);
     return ob$;
   }, []);
   return [newOb$, unmount$.current];

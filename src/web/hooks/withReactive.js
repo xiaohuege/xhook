@@ -53,7 +53,7 @@ function preprocess(refMap, fn, props, state) {
   return render;
 }
 
-export function useReactive(fn, stateMachineConfig) {
+export function withReactive(fn, stateMachineConfig) {
   return (props) => {
     // 初始状态，如果未传入状态机配置，则默认空对象
     const initState = useMemo(() => {
@@ -96,8 +96,8 @@ export function useReactive(fn, stateMachineConfig) {
     const refMap = {
       [REF_TAG.props]: propsRef,
       [REF_TAG.state]: stateRef,
-      [REF_TAG.mount$]: mountRef,
-      [REF_TAG.unmount$]: unmountRef,
+      [REF_TAG.mount]: mountRef,
+      [REF_TAG.unmount]: unmountRef,
       [REF_TAG.setState]: setStateRef,
       [REF_TAG.gc]: gcRef,
       [REF_TAG.machine]: machineRef,

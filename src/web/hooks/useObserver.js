@@ -3,7 +3,7 @@ import { getCurrentContext } from '../PreContext';
 import { Subject } from '../../reactive/Subject';
 import _ from 'underscore';
 import { REF_TAG } from '../contants';
-import { useGc } from './gc';
+import { gc } from './gc';
 
 export function useObserver(keys, project, needSubscribe = true) {
   const context = getCurrentContext();
@@ -21,7 +21,7 @@ export function useObserver(keys, project, needSubscribe = true) {
     if (_.isFunction(project)) {
       ob$ = project(ob$);
     }
-    needSubscribe && useGc(ob$);
+    needSubscribe && gc(ob$);
     return [deps, ob$];
   }, []);
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { isObservable } from '../../reactive/index';
 import _ from 'underscore';
-import { useGc } from './gc';
+import { gc } from './gc';
 
 /**
  * 事件合成hook
@@ -17,7 +17,7 @@ export function useEventCompose(project) {
     if (!isObservable(ob$)) {
       throw new Error('[project] return value must be Observable');
     }
-    useGc(ob$);
+    gc(ob$);
     return ob$;
   }, []);
 }
