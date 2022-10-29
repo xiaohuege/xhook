@@ -1,7 +1,7 @@
 /* 首页：全部审核单页面 */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withReactive, useMount, useEventListen, useEventCompose, useUnmount } from '../../ration/web';
+import { withReactive, useMount, useEventListen, useEventCompose, useUnmount, useObserver } from '../../ration/web';
 import { map, merge, log, scan, update, transition, timer, switchMap, takeUntil } from '../../ration/main';
 
 import './index.css';
@@ -44,6 +44,7 @@ const ClockStateMachine = {
     time: null,
     timeStr: '',
     loading: false,
+    flag: '',
   },
   initial: 'idle',
   states: {
@@ -76,6 +77,11 @@ const ClockStateMachine = {
             timeStr: void 0,
           },
         },
+        FLAG: {
+          actions: {
+            flag: void 0,
+          }
+        }
       },
     },
   },
@@ -104,10 +110,12 @@ const Clock = withReactive((props, state) => {
     transition('LOOP'),
     takeUntil(unmount$),
   ));
-  const { title, timeStr, $state } = state;
+
+  useObserver('flag', ob$ => ob$.pipe(log(6666666), transition('FLAG', ({item}) => ({flag: item[0]}))));
+  const { title, timeStr, $state, flag } = state;
   return (
     <div className="clock">
-      <div className="clock-title">{title}</div>
+      <div className="clock-title">[flag:{flag}]{title}</div>
       <div className="clock-wrap">
         {$state == 'loading' && <div className="clock-loading">努力加载中......</div>}
         {$state != 'loading' && <div className="clock-time">{timeStr}</div>}
@@ -116,16 +124,17 @@ const Clock = withReactive((props, state) => {
   );
 }, ClockStateMachine);
 
-const Rx = withReactive(() => {
+const Rx = withReactive((props, state) => {
   const title = 'withReactive测试';
-  useMount(ob$ => ob$.pipe(log('rx mount')));
+  const [, unmount$] = useUnmount();
+  useMount(ob$ => ob$.pipe(log('rx mount'), switchMap(() => timer(2000, 1000)), update((data, flag) => ({ flag })), log('rx mount 2222'), takeUntil(unmount$)));
   return (
     <div>
       <div className="nav-title">{title}</div>
       <Count tag="1-总数" />
       <Count tag="2-总数" num={6} />
       <Count tag="3-总数" num={-8} />
-      <Clock />
+      <Clock flag={state.flag}/>
     </div>
   );
 });
