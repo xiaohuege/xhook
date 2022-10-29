@@ -5,6 +5,13 @@ import _ from 'underscore';
 import { REF_TAG } from '../contants';
 import { gc } from './gc';
 
+/**
+ * 属性变化监听hook
+ * @param {*} keys 需要监听的属性值
+ * @param {*} project 处理流程
+ * @param {*} needSubscribe 是否订阅，默认true
+ * @returns [新可观测对象，源可观测对象]
+ */
 export function useObserver(keys, project, needSubscribe = true) {
   const context = getCurrentContext();
   const stateRef = context[REF_TAG.state];

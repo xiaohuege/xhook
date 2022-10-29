@@ -8,7 +8,7 @@ import { REF_TAG } from '../web/contants';
 /**
  * 状态切换
  * @param {*} event 事件名称
- * @param {*} resultSelector
+ * @param {*} resultSelector 用户生成事件详情数据
  */
 export function transition(event, resultSelector) {
   const context = getCurrentContext();
@@ -32,7 +32,7 @@ export function transition(event, resultSelector) {
       // 事件详情
       let eventData = _.isObject(resultSelector) ? resultSelector : value;
       if (_.isFunction(resultSelector)) {
-        eventData = resultSelector(value, stateRef.current);
+        eventData = resultSelector(stateRef.current, value);
       }
       // 状态机变换之后的新状态
       const changeState = fsmService.send(eventName, eventData);

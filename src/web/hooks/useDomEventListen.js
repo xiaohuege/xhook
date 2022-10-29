@@ -10,7 +10,7 @@ import { gc } from './gc';
  * @param {*} handler dom事件监听
  * @param {*} project 处理流程
  * @param {*} needSubscribe 是否订阅，默认true
- * @returns [事件处理函数，新可观测对象，源可观测对象]
+ * @returns [新可观测对象，源可观测对象]
  */
 export function useDomEventListen(handler ,project, needSubscribe = true) {
   const context = getCurrentContext();
