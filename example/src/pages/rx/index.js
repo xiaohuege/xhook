@@ -129,14 +129,7 @@ const Rx = withReactive((props, state) => {
   const [, unmount$] = useUnmount();
   useMount(ob$ => ob$.pipe(log('rx mount'), switchMap(() => timer(2000, 1000)), update((data, flag) => ({ flag })), log('rx mount 2222'), takeUntil(unmount$)));
 
-  useDomEventListen((next) => {
-    const handler = (e) => {
-      console.log('global click');
-      next(e);
-    }
-    window.document.addEventListener('click', handler);
-    return () => window.document.removeEventListener('click', handler);
-  }, ob$ => ob$.pipe(log('useDomEventListen')));
+  useDomEventListen(window.document, 'click', ob$ => ob$.pipe(log('useDomEventListen')));
   return (
     <div>
       <div className="nav-title">{title}</div>
