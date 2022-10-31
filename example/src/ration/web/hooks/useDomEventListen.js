@@ -1,9 +1,3 @@
-import { useRef, useMemo } from 'react';
-import { Subject } from '../../reactive/Subject';
-import { getCurrentContext } from '../PreContext';
-import { REF_TAG } from '../contants';
-import _ from 'underscore';
-import { gc } from './gc';
 import { useCustomEventListen } from './useCustomEventListen';
 
 /**
